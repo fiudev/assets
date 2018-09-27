@@ -1,15 +1,14 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const { MONGO_USER_DB, MONGO_PASSWORD_DB, MONGO_URL } = process.env;
+const { DB_USER, DB_PASS, DB_URL } = process.env;
 
-const options = { user: MONGO_USER_DB, pass: MONGO_PASSWORD_DB, useNewUrlParser: true };
-
-const db = async () => {
-  try {
-    await mongoose.connect( MONGO_URL, options );
-  } catch (e) {
-    console.log(`DB ERROR: \n${e.message}`);
-  }
+const options = {
+  user: DB_USER,
+  pass: DB_PASS,
+  useNewUrlParser: true,
+  useCreateIndex: true
 };
 
-export default db ;
+const db = () => Promise.resolve(mongoose.connect(DB_URL, options));
+
+export default db;
