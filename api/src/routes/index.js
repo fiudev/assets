@@ -6,7 +6,7 @@ import user from "../controllers/user";
 const apiRouter = Router();
 
 // apiRouter.post("/asset", asset.create);
-// apiRouter.get("/asset", asset.read);
+apiRouter.get("/assets", asset.read);
 // apiRouter.put("/asset", asset.update);
 
 // apiRouter.get("/user", user.read);
