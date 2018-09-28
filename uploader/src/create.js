@@ -1,16 +1,22 @@
 import response from "./responses";
-import { save, thumbnail } from "./upload";
+import { extractFiles, thumbnail, saveBuffer } from "./upload";
 
 const create = (req, res) => {
-  save(req, res, async err => {
+  extractFiles(req, res, async err => {
     if (err) return response.failureResponse(res, err);
+
     const { files } = req;
+    const { username } = req.body;
+
+    let destInfo = new Array();
 
     for (let file of files) {
-      const thumbDest = await thumbnail(file);
+      const { dest: filepath } = await saveBuffer(file);
+      const { dest: thumb } = await thumbnail(filepath);
+      destInfo.push({ username, thumb, filepath });
     }
 
-    response.successResponse(res, null);
+    response.successResponse(res, destInfo);
   });
 };
 

@@ -1,7 +1,8 @@
 {
   "name": "uploader",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
+  "author": "david-castaneda <dcast188@fiu.edu>",
   "license": "MIT",
   "scripts": {
     "start": "node build/",
