@@ -1,31 +1,7 @@
 import response from "./responses";
 import assetService from "../services/asset";
 
-import { extractFiles, saveBuffer } from "../services/file";
-
-import axios from "axios";
-
-const { THUMB_URL } = process.env;
-const thumbnail = axios.create({ baseURL: THUMB_URL });
-
-const create = (req, res) => {
-  extractFiles(req, res, async err => {
-    if (err) return failureResponse(res, err);
-
-    const { files } = req;
-
-    let filepaths = new Array();
-
-    for (let file of files) {
-      const { filepath } = await saveBuffer(file);
-      filepaths.push({ filepath });
-    }
-
-    const { data } = await thumbnail.post("/create", { filepaths });
-
-    response.successResponse(res, data.data);
-  });
-};
+const create = async (req, res) => res.redirect(307, "http://localhost:3001");
 
 const read = async (req, res) => {
   const { page = 0, limit = 10, tag = null } = req.query;
