@@ -1,7 +1,7 @@
 import response from "./responses";
 import assetService from "../services/asset";
 
-const create = async (req, res) => {};
+const create = async (req, res) => res.redirect(307, "http://localhost:3001");
 
 const read = async (req, res) => {
   const { page = 0, limit = 10, tag = null } = req.query;
