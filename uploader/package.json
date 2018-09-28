@@ -1,0 +1,21 @@
+{
+  "name": "uploader",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node build/",
+    "build": "backpack build",
+    "dev": "backpack dev"
+  },
+  "dependencies": {
+    "backpack-core": "^0.7.0",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "gm": "^1.23.1",
+    "helmet": "^3.13.0",
+    "multer": "^1.4.0"
+  }
+}
