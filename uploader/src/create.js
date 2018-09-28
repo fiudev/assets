@@ -1,23 +1,31 @@
 import response from "./responses";
-import { extractFiles, thumbnail, saveBuffer } from "./upload";
+import { thumbnail } from "./upload";
 
-const create = (req, res) => {
-  extractFiles(req, res, async err => {
-    if (err) return response.failureResponse(res, err);
+/**
+ * Receives array of filepath
+ * @param {Array<string>} req
+ * @param {*} res
+ */
+const create = async (req, res) => {
+  const { filepaths } = req.body;
 
-    const { files } = req;
-    const { username } = req.body;
+  if (filepaths.length <= 0)
+    return response.failureResponse(res, "Invalid request");
+  if (!Array.isArray(filepaths))
+    return response.failureResponse(res, "Invalid request");
 
-    let destInfo = new Array();
+  let dest = new Array();
 
-    for (let file of files) {
-      const { dest: filepath } = await saveBuffer(file);
+  try {
+    for (let filepath of filepaths) {
       const { dest: thumb } = await thumbnail(filepath);
-      destInfo.push({ username, thumb, filepath });
+      dest.push({ thumb, filepath });
     }
 
-    response.successResponse(res, destInfo);
-  });
+    response.successResponse(res, dest);
+  } catch (e) {
+    response.failureResponse(res, e);
+  }
 };
 
 export default create;

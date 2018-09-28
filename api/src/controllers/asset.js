@@ -10,20 +10,29 @@ const thumbnail = axios.create({ baseURL: THUMB_URL });
 
 const create = (req, res) => {
   extractFiles(req, res, async err => {
-    if (err) return failureResponse(res, err);
+    if (err) return response.failureResponse(res, err);
 
     const { files } = req;
 
+    if (files.length <= 0)
+      return response.failureResponse(res, "Invalid request");
+    if (!Array.isArray(files))
+      return response.failureResponse(res, "Invalid request");
+
     let filepaths = new Array();
 
-    for (let file of files) {
-      const { filepath } = await saveBuffer(file);
-      filepaths.push({ filepath });
+    try {
+      for (let file of files) {
+        const { filepath } = await saveBuffer(file);
+        filepaths.push(filepath);
+      }
+
+      const { data } = await thumbnail.post("/create", { filepaths });
+
+      response.successResponse(res, data.data);
+    } catch (e) {
+      response.failureResponse(res, e);
     }
-
-    const { data } = await thumbnail.post("/create", { filepaths });
-
-    response.successResponse(res, data.data);
   });
 };
 

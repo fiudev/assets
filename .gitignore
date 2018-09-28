@@ -13,3 +13,4 @@ logs
 .env.production.local
 build
 tmp
+files
