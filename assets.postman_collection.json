@@ -15,6 +15,65 @@
 						"header": [],
 						"body": {},
 						"url": {
+							"raw": "localhost:3000/api/assets?tag=fiu",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"assets"
+							],
+							"query": [
+								{
+									"key": "tag",
+									"value": "fiu"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "assets",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/api/assets",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"assets"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "uploader",
+			"item": [
+				{
+					"name": "upload",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
 							"raw": ""
 						}
 					},
