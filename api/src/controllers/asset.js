@@ -1,35 +1,29 @@
 import response from "./responses";
 import assetService from "../services/asset";
-
-import { extractFiles, saveBuffer } from "../services/file";
-
+import { extractFiles, save, validateFiles } from "../services/file";
 import axios from "axios";
 
 const { THUMB_URL } = process.env;
-const thumbnail = axios.create({ baseURL: THUMB_URL });
+const thmb = axios.create({ baseURL: THUMB_URL });
 
 const create = (req, res) => {
   extractFiles(req, res, async err => {
     if (err) return response.failureResponse(res, err);
 
     const { files } = req;
-
-    if (files.length <= 0)
-      return response.failureResponse(res, "Invalid request");
-    if (!Array.isArray(files))
-      return response.failureResponse(res, "Invalid request");
-
-    let filepaths = new Array();
+    const { username } = req.body;
 
     try {
-      for (let file of files) {
-        const { filepath } = await saveBuffer(file);
-        filepaths.push(filepath);
-      }
+      await validateFiles(files);
+      const filepaths = await save(files);
 
-      const { data } = await thumbnail.post("/create", { filepaths });
+      const {
+        data: { data }
+      } = await thmb.post("/create", { filepaths });
 
-      response.successResponse(res, data.data);
+      const payload = await assetService.storeDB({ data, username });
+
+      response.successResponse(res, payload);
     } catch (e) {
       response.failureResponse(res, e);
     }
@@ -51,7 +45,8 @@ const read = async (req, res) => {
 
       const query = await assetService.searchByTag(payload, tag);
       response.successResponse(res, query);
-    }
+    } 
+    throw new Error('Invalid request')
   } catch (e) {
     response.failureResponse(res, e);
   }

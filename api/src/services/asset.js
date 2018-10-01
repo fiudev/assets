@@ -12,7 +12,7 @@ const sanitize = str => str.replace(/[^A-Za-z0-9]+/g, "").toLowerCase();
  */
 const validateTag = tag =>
   new Promise((resolve, reject) => {
-    tag == null && reject("Invalid tag");
+    tag == null && reject("Tag not provided");
 
     const cleanTag = sanitize(tag);
 
@@ -45,4 +45,16 @@ const searchByTag = (payload, tag) =>
     resolve({ currentPage, currentQuery, count, overallPages, assets });
   });
 
-export default { validateTag, searchByTag };
+const storeDB = data =>
+  new Promise(async resolve => {
+    let payload = new Array();
+    for (let i of data.data) {
+      const filename = i.original.replace(/^.*[\\\/]/, "");
+      const entry = { uploadedBy: data.username, filename, ...i };
+      payload.push(entry);
+      await Asset.create(entry);
+    }
+    resolve(payload);
+  });
+
+export default { validateTag, searchByTag, storeDB };

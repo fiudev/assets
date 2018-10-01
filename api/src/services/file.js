@@ -19,9 +19,30 @@ const writeFileAsync = (dest, buffer) =>
 
 const saveBuffer = file =>
   new Promise(async resolve => {
-    let filepath = path.resolve("../files/original/" + Date.now() + "-" + file.originalname);
+    let filepath = path.resolve(
+      "../files/original/" + Date.now() + "-" + file.originalname
+    );
     await writeFileAsync(filepath, file.buffer);
     resolve({ filepath });
   });
 
-export { extractFiles, saveBuffer };
+const save = files =>
+  new Promise(async resolve => {
+    let filepaths = new Array();
+
+    for (let file of files) {
+      const { filepath } = await saveBuffer(file);
+      filepaths.push(filepath);
+    }
+    resolve(filepaths);
+  });
+
+const validateFiles = files =>
+  new Promise((resolve, reject) => {
+    if (!files) reject("Invalid request");
+    if (files.length <= 0) reject("Invalid request");
+    if (!Array.isArray(files)) reject("Invalid request");
+    resolve(files);
+  });
+
+export { extractFiles, save, validateFiles };
