@@ -1,31 +1,31 @@
-import response from "./responses";
+import httpResponse from "../responses/httpResponses";
+import errorResponse from "../responses/errorResponses";
 import assetService from "../services/asset";
-import { extractFiles, save, validateFiles } from "../services/file";
-import axios from "axios";
-
-const { THUMB_URL } = process.env;
-const thmb = axios.create({ baseURL: THUMB_URL });
+import fileService from "../services/file";
 
 const create = (req, res) => {
-  extractFiles(req, res, async err => {
-    if (err) return response.failureResponse(res, err);
+  fileService.extractFiles(req, res, async err => {
+    if (err) return httpResponse.failureResponse(res, err);
 
     const { files } = req;
-    const { username } = req.body;
+    const { username, tags } = req.body;
 
     try {
-      await validateFiles(files);
-      const filepaths = await save(files);
+      await fileService.validateFiles(files);
+      const cleanTags = await assetService.validateTags(tags);
+      const filePaths = await fileService.save(files);
 
-      const {
-        data: { data }
-      } = await thmb.post("/create", { filepaths });
+      const assetPaths = await assetService.createThumbnails(filePaths);
 
-      const payload = await assetService.storeDB({ data, username });
+      const payload = await assetService.storeDB({
+        assetPaths,
+        username,
+        cleanTags
+      });
 
-      response.successResponse(res, payload);
+      httpResponse.successResponse(res, payload);
     } catch (e) {
-      response.failureResponse(res, e);
+      httpResponse.failureResponse(res, e);
     }
   });
 };
@@ -44,11 +44,11 @@ const read = async (req, res) => {
       const payload = { currentPage, pageQuery, queryLimit };
 
       const query = await assetService.searchByTag(payload, tag);
-      response.successResponse(res, query);
-    } 
-    throw new Error('Invalid request')
+      httpResponse.successResponse(res, query);
+    }
+    throw new Error(errorResponse.invalidRequest);
   } catch (e) {
-    response.failureResponse(res, e);
+    httpResponse.failureResponse(res, e);
   }
 };
 

@@ -7,7 +7,7 @@ const assetModel = mongoose.model(
     filename: { type: String, required: true },
     original: { type: String, required: true },
     thumbnail: { type: String, required: true },
-    // tags: { type: Array },
+    tags: { type: Array, default: "fiu" },
     timestamp: { type: Date, default: Date.now() }
   })
 );
