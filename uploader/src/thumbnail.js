@@ -25,7 +25,7 @@ const thumbDimensions = path =>
     }
   });
 
-const thumbnail = filepath =>
+const genThumbnail = filepath =>
   new Promise(async (resolve, reject) => {
     const width = await thumbDimensions(filepath);
 
@@ -50,4 +50,4 @@ const thumbnail = filepath =>
       });
   });
 
-export { thumbnail, saveBuffer };
+export { genThumbnail, saveBuffer };
