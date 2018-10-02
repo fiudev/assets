@@ -69,9 +69,16 @@ const searchByTag = (payload, tag) =>
 const storeDB = data =>
   new Promise(async resolve => {
     let payload = new Array();
-    for (let i of data.data) {
+
+    for (let i of data.assetPaths) {
       const filename = i.original.replace(/^.*[\\\/]/, "");
-      const entry = { uploadedBy: data.username, filename, ...i };
+      const entry = {
+        uploadedBy: data.username,
+        filename,
+        tags: data.cleanTags,
+        ...i
+      };
+
       payload.push(entry);
       await Asset.create(entry);
     }
