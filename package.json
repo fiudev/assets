@@ -5,8 +5,9 @@
   "author": "david-castaneda <dcast188@fiu.edu>",
   "license": "MIT",
   "scripts": {
-    "api": "cd api && yarn dev",
-    "uploader": "cd uploader && yarn dev"
+    "assets:api": "cd api && yarn dev",
+    "assets:uploader": "cd uploader && yarn dev",
+    "assets:createToken": "cd api && yarn createToken"
   },
   "dependencies": {
     "image-size": "^0.6.3"
