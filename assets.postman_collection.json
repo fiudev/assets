@@ -9,58 +9,169 @@
 			"name": "api",
 			"item": [
 				{
-					"name": "assets",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "localhost:3000/api/assets?tag=fiu",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"assets"
-							],
-							"query": [
-								{
-									"key": "tag",
-									"value": "fiu"
+					"name": "dev",
+					"item": [
+						{
+							"name": "assets",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "localhost:3000/api/assets?tag=dev",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"assets"
+									],
+									"query": [
+										{
+											"key": "tag",
+											"value": "dev"
+										}
+									]
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "assets",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:3000/api/assets",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"assets"
-							]
+						{
+							"name": "assets",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1YmI1OTJlYjM5NThlNTU5YmI5NmQ0NGMiLCJpYXQiOjE1Mzg2OTAyMTB9.UV5VQeWjGZG_Jkrcdh55hCmOfdUlAuFV7DOGEYt7OvM"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"type": "file"
+										},
+										{
+											"key": "username",
+											"value": "dcast188",
+											"type": "text"
+										},
+										{
+											"key": "tags[0]",
+											"value": "dev",
+											"type": "text"
+										},
+										{
+											"key": "tags[1]",
+											"value": "elopment-@@33##$5';l",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:3000/api/assets",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"assets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVhdG9yS2V5IjoiJGZpdWRldiIsImlhdCI6MTUzODYyNjA5OCwiZXhwIjoxNTM4NjI5Njk4fQ.2GQD1hQj59e0IQbPGa1DV1kzvYI9VV6q7jpp4rZIu10"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"email\":\"dcast188@fiu.edu\"\n}"
+								},
+								"url": {
+									"raw": "localhost:3000/api/user",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "localhost:3000/api/user/5bb592eb3958e559bb96d44c",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"user",
+										"5bb592eb3958e559bb96d44c"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"email\":\"dcast188@fiu.edu\"\n}"
+								},
+								"url": {
+									"raw": "localhost:3000/auth/tokens",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"auth",
+										"tokens"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					],
+					"_postman_isSubFolder": true
 				}
 			]
 		},
@@ -68,16 +179,49 @@
 			"name": "uploader",
 			"item": [
 				{
-					"name": "upload",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": ""
+					"name": "dev",
+					"item": [
+						{
+							"name": "upload",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"value": "",
+											"type": "file"
+										},
+										{
+											"key": "username",
+											"value": "dcast188",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:3001/create",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"create"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					],
+					"_postman_isSubFolder": true
 				}
 			]
 		}
