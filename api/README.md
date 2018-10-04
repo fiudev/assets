@@ -1,6 +1,16 @@
-# API
+# API 
 
-## Get assets
+## **Getting started**
+1. Clone project & install dependencies
+    - git clone `https://github.com/fiudev/assets.git`
+    - `yarn` or `npm install`
+2. Create `.env` file and setup `env` variables
+    - sample [`.env`]("https://github.com/fiudev/assets/blob/master/api/.env.sample")    
+3. run it `yarn dev` or `npm run dev`
+
+---
+
+## **Get assets**
 
 ## GET `/api/assets`
 
@@ -54,6 +64,7 @@ or
         ]
     }
 ```
+---
 
 ## Login
 
@@ -77,7 +88,7 @@ or
     }
 }
 ```
-
+---
 ## Upload
 
 ## POST `/api/assets`
@@ -122,10 +133,11 @@ or
    ]
 }
 ```
+---
 
 ## Create User
 
-## POST `api/user`
+## POST `/api/user`
 
 - Authorization - middleware `authCreator`
 
