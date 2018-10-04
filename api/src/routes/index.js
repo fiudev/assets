@@ -5,17 +5,17 @@ import user from "../controllers/user";
 
 import authTokens from "../controllers/authTokens";
 
-import authMiddleware from "../middleware/auth";
-import authCreatorMiddleware from "../middleware/authCreator";
+import authUser from "../middleware/authUser";
+import authCreator from "../middleware/authCreator";
 
 const apiRouter = Router();
 
-apiRouter.post("/assets", authCreatorMiddleware, asset.create);
+apiRouter.post("/assets", authUser, asset.create);
 apiRouter.get("/assets", asset.read);
 
 // apiRouter.put("/asset", asset.update);
 
 // apiRouter.get("/user", user.read);
-// apiRouter.post("/user", authMiddleware, user.create);
+// apiRouter.post("/user", authCreator, user.create);
 
 export { apiRouter };
