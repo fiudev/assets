@@ -1,5 +1,4 @@
 import User from "../models/user";
-import bcrypt from "bcryptjs";
 
 const validateEmail = email => {
   const re = /\S+@\S+\.\S+/;

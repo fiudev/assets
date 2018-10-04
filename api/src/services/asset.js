@@ -52,12 +52,12 @@ const searchByTag = (payload, tag) =>
   new Promise(async (resolve, reject) => {
     const { pageQuery, queryLimit, currentPage } = payload;
 
-    const assets = await Asset.find({ "tags.title": tag })
+    const assets = await Asset.find({ tags: tag })
       .skip(pageQuery)
       .limit(queryLimit)
       .sort({ timestamp: -1 });
 
-    const count = await Asset.countDocuments({ "tags.title": tag });
+    const count = await Asset.countDocuments({ tags: tag });
     const overallPages = Math.floor(count / queryLimit);
     const currentQuery = assets.length;
 

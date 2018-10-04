@@ -44,11 +44,11 @@ const read = async (req, res) => {
       const payload = { currentPage, pageQuery, queryLimit };
 
       const query = await assetService.searchByTag(payload, tag);
-      httpResponse.successResponse(res, query);
+      return httpResponse.successResponse(res, query);
     }
     throw new Error(errorResponse.invalidRequest);
   } catch (e) {
-    httpResponse.failureResponse(res, e);
+    return httpResponse.failureResponse(res, e);
   }
 };
 
