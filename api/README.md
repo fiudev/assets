@@ -5,7 +5,7 @@
     - git clone `https://github.com/fiudev/assets.git`
     - `yarn` or `npm install`
 2. Create `.env` file and setup `env` variables
-    - sample [`.env`]("https://github.com/fiudev/assets/blob/master/api/.env.sample")    
+    - sample [.env]("https://github.com/fiudev/assets/blob/master/api/.env.sample")    
 3. run it `yarn dev` or `npm run dev`
 
 ---

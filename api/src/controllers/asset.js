@@ -3,12 +3,14 @@ import errorResponse from "../responses/errorResponses";
 import assetService from "../services/asset";
 import fileService from "../services/file";
 
+import logger from "../utils/logger";
+
 const create = (req, res) => {
   fileService.extractFiles(req, res, async err => {
     if (err) return httpResponse.failureResponse(res, err);
 
-    const { files } = req;
-    const { username, tags } = req.body;
+    const { files, user } = req;
+    const { tags } = req.body;
 
     try {
       await fileService.validateFiles(files);
@@ -19,9 +21,11 @@ const create = (req, res) => {
 
       const payload = await assetService.storeDB({
         assetPaths,
-        username,
+        user,
         cleanTags
       });
+
+      logger.info(`${user.email} uploaded ${filePaths.length}`);
 
       httpResponse.successResponse(res, payload);
     } catch (e) {

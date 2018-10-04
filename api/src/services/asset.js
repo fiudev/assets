@@ -74,7 +74,7 @@ const storeDB = data =>
     for (let i of data.assetPaths) {
       const filename = i.original.replace(/^.*[\\\/]/, "");
       const entry = {
-        uploadedBy: data.username,
+        uploadedBy: data.user.email,
         filename,
         tags: data.cleanTags,
         ...i
