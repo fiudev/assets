@@ -1,6 +1,7 @@
 import Asset from "../models/asset";
 import errorResponse from "../responses/errorResponses";
 import axios from "axios";
+import isReachable from "is-reachable";
 
 const { THUMB_URL } = process.env;
 const thmb = axios.create({ baseURL: THUMB_URL });
@@ -90,10 +91,18 @@ const storeDB = data =>
  */
 const createThumbnails = filepaths =>
   new Promise(async (resolve, reject) => {
-    if (!Array.isArray(filepaths)) reject(errorResponse.invalidRequest);
-    const { data } = await thmb.post("/create", { filepaths });
+    try {
+      const hasValidConnection = await isReachable(THUMB_URL);
 
-    resolve(data.data);
+      if (hasValidConnection) {
+        if (!Array.isArray(filepaths)) reject(errorResponse.invalidRequest);
+        const { data } = await thmb.post("/create", { filepaths });
+        resolve(data.data);
+      }
+      reject("Uploader unavailable.");
+    } catch (e) {
+      reject(e);
+    }
   });
 
 export default {

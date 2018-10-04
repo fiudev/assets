@@ -14,6 +14,7 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.get("/", (req, res) => res.send("Uploader"));
 app.use("/create", create);
 
 app.listen(PORT, () => console.log("> Uploader listening"));

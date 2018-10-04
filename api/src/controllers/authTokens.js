@@ -1,3 +1,4 @@
+import userService from "../services/user";
 import httpResponse from "../responses/httpResponses";
 import jwt from "jsonwebtoken";
 
@@ -5,17 +6,16 @@ const { SECRET_KEY } = process.env;
 
 const create = async (req, res) => {
   try {
-    const { userId, secret } = req.body;
+    const { email } = req.body;
 
-    let verifiedUser = await assetService.verifySecret(userId, secret);
-    if (!verifiedUser) {
-      throw new Error(`Couldn't verify user`);
-    }
+    let verifiedUser = await userService.verifyUser(email);
 
-    const token = jwt.sign({ eventId: verifiedUser.id }, SECRET_KEY);
-    return httpResponse.successResponse(res, token);
+    if (!verifiedUser) throw new Error(`Couldn't verify user`);
+
+    const token = jwt.sign({ userId: verifiedUser.id }, SECRET_KEY);
+    httpResponse.successResponse(res, { token });
   } catch (e) {
-    return httpResponse.failureResponse(res, e.message);
+    httpResponse.failureResponse(res, e);
   }
 };
 
