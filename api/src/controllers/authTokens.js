@@ -12,7 +12,10 @@ const create = async (req, res) => {
 
     if (!verifiedUser) throw new Error(`Couldn't verify user`);
 
-    const token = jwt.sign({ userId: verifiedUser.id }, SECRET_KEY);
+    const token = jwt.sign({ userId: verifiedUser.id }, SECRET_KEY, {
+      expiresIn: "24h"
+    });
+
     httpResponse.successResponse(res, { token });
   } catch (e) {
     httpResponse.failureResponse(res, e);
