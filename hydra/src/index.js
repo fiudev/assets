@@ -1,4 +1,3 @@
-const fs = require("fs");
 const { resolve } = require("path");
 const prompt = require("prompt");
 
@@ -8,6 +7,7 @@ const thumbnail = require("./thumbnail");
 const schema = require("./schema");
 const asyncExec = require("./asyncExec");
 const asyncPrompt = require("./asyncPrompt");
+const save = require("./save");
 
 prompt.start();
 
@@ -22,8 +22,9 @@ const init = async () => {
         process.exit();
         break;
       case "2":
-        const data = await thumbnail(paths);
-        console.log(data);
+        const filepaths = await thumbnail(paths);
+        const payload = await save(filepaths);
+        console.log({ payload });
         break;
       default:
         process.exit(0);
