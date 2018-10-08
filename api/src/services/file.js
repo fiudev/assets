@@ -19,23 +19,30 @@ const writeFileAsync = (dest, buffer) =>
   Promise.resolve(writeFileSync(dest, buffer, "base64"));
 
 const saveBuffer = file =>
-  new Promise(async resolve => {
-    let filepath = path.resolve(
-      "../files/original/" + Date.now() + "-" + file.originalname
-    );
-    await writeFileAsync(filepath, file.buffer);
-    resolve({ filepath });
+  new Promise(async (resolve, reject) => {
+    let filepath = "/assets/originals/" + Date.now() + "-" + file.originalname;
+
+    try {
+      await writeFileAsync(filepath, file.buffer);
+      resolve({ filepath });
+    } catch (e) {
+      reject(e);
+    }
   });
 
 const save = files =>
-  new Promise(async resolve => {
+  new Promise(async (resolve, reject) => {
     let filepaths = new Array();
 
-    for (let file of files) {
-      const { filepath } = await saveBuffer(file);
-      filepaths.push(filepath);
+    try {
+      for (let file of files) {
+        const { filepath } = await saveBuffer(file);
+        filepaths.push(filepath);
+      }
+      resolve(filepaths);
+    } catch (e) {
+      reject(e);
     }
-    resolve(filepaths);
   });
 
 const validateFiles = files =>
