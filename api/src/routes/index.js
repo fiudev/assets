@@ -2,6 +2,7 @@ import Router from "express";
 
 import asset from "../controllers/asset";
 import user from "../controllers/user";
+import hydrate from "../controllers/hydrate";
 
 import authTokens from "../controllers/authTokens";
 
@@ -13,6 +14,8 @@ const authRouter = Router();
 
 apiRouter.post("/assets", authUser, asset.create);
 apiRouter.get("/assets", asset.read);
+
+apiRouter.post("/hydrate", authUser, hydrate.create);
 
 // apiRouter.put("/asset", asset.update);
 
