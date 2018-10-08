@@ -7,9 +7,7 @@
   "scripts": {
     "assets:api": "cd api && yarn dev",
     "assets:uploader": "cd uploader && yarn dev",
-    "assets:createToken": "cd api && yarn createToken"
-  },
-  "dependencies": {
-    "image-size": "^0.6.3"
+    "assets:createToken": "cd api && yarn createToken",
+    "assets:hydra": "cd hydra && yarn start"
   }
 }
