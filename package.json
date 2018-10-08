@@ -7,7 +7,6 @@
   "scripts": {
     "assets:api": "cd api && yarn dev",
     "assets:uploader": "cd uploader && yarn dev",
-    "assets:createToken": "cd api && yarn createToken",
     "assets:hydra": "cd hydra && yarn start"
   }
 }
