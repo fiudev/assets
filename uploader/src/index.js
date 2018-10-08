@@ -12,6 +12,7 @@ const { PORT = 3001 } = process.env;
 app.use(cors());
 app.use(helmet());
 app.use(bodyParser.json());
+app.disable("x-powered-by");
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => res.send("Uploader"));
