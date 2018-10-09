@@ -3,7 +3,7 @@ import errorResponse from "../responses/errorResponses";
 import axios from "axios";
 import isReachable from "is-reachable";
 
-const { THUMB_URL } = process.env;
+const { THUMB_URL, SHARE_URL } = process.env;
 const thmb = axios.create({ baseURL: THUMB_URL });
 
 /**
@@ -73,11 +73,13 @@ const storeDB = data =>
 
     for (let i of data.assetPaths) {
       const filename = i.original.replace(/^.*[\\\/]/, "");
+      const thumbname = i.thumbnail.replace(/^.*[\\\/]/, "");
       const entry = {
+        src: `${SHARE_URL}/originals/${filename}`,
+        thumb: `${SHARE_URL}/thumbnails/${thumbname}`,
         uploadedBy: data.user.email,
         filename,
-        tags: data.cleanTags,
-        ...i
+        tags: data.cleanTags
       };
 
       payload.push(entry);
