@@ -1,0 +1,104 @@
+@font-face {
+  font-family: Product-Sans-Bold;
+  src: url("../fonts/product-sans/Product-Sans-Bold.ttf");
+}
+@font-face {
+  font-family: Product-Sans-Bold-Italic;
+  src: url("../fonts/product-sans/Product-Sans-Bold-Italic.ttf");
+}
+@font-face {
+  font-family: Product-Sans-Italic;
+  src: url("../fonts/product-sans/Product-Sans-Italic.ttf");
+}
+@font-face {
+  font-family: Product-Sans-Regular;
+  src: url("../fonts/product-sans/Product-Sans-Regular.ttf");
+}
+
+body {
+  font-family: Product Sans, Arial, Helvetica, sans-serif !important;
+  background-color: #f6f8fa !important;
+}
+
+*:focus {
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+.navbar {
+  color: #fff;
+  background-color: #06274f;
+  justify-content: space-between !important;
+  padding: 1rem !important;
+}
+
+.navbar .navbar-brand img {
+  height: 40px;
+}
+
+.navbar .input-group {
+  width: 20rem;
+}
+
+.navbar .input-group input,
+.navbar .input-group button {
+  border-radius: 50px !important;
+}
+
+.navbar .input-group button {
+  margin-left: -45px;
+  z-index: 3 !important;
+  background: transparent;
+  color: #06274f;
+  border: 0px;
+}
+
+.navbar .input-group button:focus {
+  color: #06274f;
+  background: transparent !important;
+}
+/* ------------------------------------------- */
+
+.header {
+  margin: 25px auto 20px auto;
+  text-align: center;
+  color: #626468;
+  width: fit-content;
+}
+
+.header h4:hover {
+  text-decoration: underline;
+  text-decoration-color: #626468;
+}
+/* ------------------------------------------- */
+
+.showcase {
+}
+.showcase a {
+  color: #06274f;
+  text-decoration: none;
+}
+.showcase .card {
+  width: 31.33%;
+  float: left;
+  margin: 10px 10px;
+}
+
+.showcase .card-img {
+  object-fit: cover;
+  max-height: 190px;
+  min-height: 190px;
+}
+
+/* ------------------------------------------- */
+.gallery .header {
+  width: 100% !important;
+}
+.gallery .navbar {
+  background-color: #f6f8fa !important;
+}
+
+.gallery .navbar li {
+  list-style: none !important;
+  color: #737b83;
+}

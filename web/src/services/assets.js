@@ -5,13 +5,14 @@ const { API_URL } = config;
 
 const assetInstance = axios.create({ baseURL: API_URL });
 
-const read = tag =>
+const read = (tag, page = 0) =>
   new Promise(async (resolve, reject) => {
     try {
-      const { data } = await assetInstance.get("/api/assets?" + "tag=" + tag);
-      console.log(data.data);
+      const query = `tag=${tag}` + `&page=${page}`;
+      const { data } = await assetInstance.get("/api/assets?" + query);
+      resolve(data.data);
     } catch (e) {
-      console.log(e.message);
+      reject(e);
     }
   });
 
