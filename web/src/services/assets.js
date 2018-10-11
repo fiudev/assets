@@ -1,19 +1,56 @@
 import axios from "axios";
 import config from "./config.js";
 
+import JSZip from "jszip";
+import dwn from "downloadjs";
+
 const { API_URL } = config;
 
 const assetInstance = axios.create({ baseURL: API_URL });
+const downloadInstance = axios.create({
+  baseURL: API_URL,
+  responseType: "blob"
+});
 
 const read = (tag, page = 0) =>
   new Promise(async (resolve, reject) => {
     try {
-      const query = `tag=${tag}` + `&page=${page}`;
-      const { data } = await assetInstance.get("/api/assets?" + query);
+      const query = `tag=${tag}` + `&page=${page}` + `&limit=10`;
+      const { data } = await assetInstance.get("/assets?" + query);
       resolve(data.data);
     } catch (e) {
       reject(e);
     }
   });
 
-export default { read };
+const download = (assets, tag) =>
+  new Promise((resolve, reject) => {
+    const zip = new JSZip();
+    const folder = zip.folder(tag);
+    let arraySize = assets.length;
+
+    try {
+      assets.forEach(async ({ id, filename }) => {
+        const params = { params: { id } };
+        const { data } = await downloadInstance.get("/download", params);
+        const blob = await new Blob([data], { type: data.type });
+
+        if (navigator.userAgent.includes("Chrome")) {
+          folder.file(filename, blob, { binary: true });
+          arraySize--;
+          if (arraySize == 0) {
+            const content = await zip.generateAsync({ type: "blob" });
+            await dwn(content, `${tag}.zip`, "application/zip");
+            resolve();
+          }
+        } else {
+          dwn(blob, filename, blob.type);
+          resolve();
+        }
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+
+export default { read, download };

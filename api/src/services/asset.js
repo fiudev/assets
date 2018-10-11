@@ -108,10 +108,24 @@ const createThumbnails = filepaths =>
     }
   });
 
+/**
+ * @param {string} id
+ */
+const download = id =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const { path, filename } = await Asset.findById(id);
+      resolve({ filepath: path.original, filename });
+    } catch (e) {
+      reject(e);
+    }
+  });
+
 export default {
   createThumbnails,
   validateTag,
   validateTags,
   searchByTag,
-  storeDB
+  storeDB,
+  download
 };

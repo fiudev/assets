@@ -7,13 +7,20 @@ import Header from "./shared/Header";
 import { Navbar, NavItem } from "reactstrap";
 
 export default class Gallery extends React.Component {
-  state = { assets: new Array(), overallPages: 0, currentPage: 0 };
+  state = { tag: "", assets: new Array(), overallPages: 0, currentPage: 0 };
 
   componentDidMount() {
     const { location } = this.props;
     const params = qs.parse(location.search);
+    this.setState({ tag: params.tag });
     this.fetchAssets(params);
   }
+
+  componentWillReceiveProps = (next, prevState) => {
+    const { search } = next.location;
+    const params = qs.parse(search);
+    this.fetchAssets(params);
+  };
 
   fetchAssets = async params => {
     try {
@@ -45,26 +52,70 @@ export default class Gallery extends React.Component {
     return selected;
   };
 
-  next = () => {};
-  previous = () => {};
+  next = () => {
+    const { currentPage, overallPages } = this.state;
+    if (currentPage < overallPages) {
+      const { location } = this.props;
+      const params = qs.parse(location.search);
+      let { tag, page } = params;
 
+      this.props.history.push(`/assets?tag=${tag}&page=${parseInt(page) + 1}`);
+    }
+  };
+
+  previous = () => {
+    const { currentPage, overallPages } = this.state;
+    if (currentPage >= overallPages && currentPage > 0) {
+      const { location } = this.props;
+      const params = qs.parse(location.search);
+      let { tag, page } = params;
+
+      this.props.history.push(`/assets?tag=${tag}&page=${parseInt(page) - 1}`);
+    }
+  };
+
+  download = async () => {
+    const { tag } = this.state;
+    const selected = this.selectedImages();
+    if (selected.length <= 0) return alert("No assets selected.");
+
+    const assets = selected.map(
+      ({ _id, filename }) => _id && { id: _id, filename }
+    );
+
+    try {
+      await assetService.download(assets, tag);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   render() {
-    const { assets, overallPages, currentPage } = this.state;
+    const { tag, assets, overallPages, currentPage } = this.state;
 
+    // const galleryAssets = assets.map(i => {thumbnailWidth:500, thumbnailHeight:500, tags:i.tags, })
     return (
       <div className="gallery">
         {assets.length <= 0 && <Header text="0 assets found." />}
 
         {assets.length > 0 && (
           <React.Fragment>
+            <Header tag={tag} download={this.download} />
             <Header>
               <Navbar>
-                <NavItem onClick={this.next}>Next</NavItem>
+                <NavItem className="direction" onClick={this.previous}>
+                  previous
+                </NavItem>
                 <NavItem>{currentPage + 1 + "/" + (overallPages + 1)}</NavItem>
-                <NavItem onClick={this.previous}>previous</NavItem>
+                <NavItem className="direction" onClick={this.next}>
+                  Next
+                </NavItem>
               </Navbar>
             </Header>
-            <GalleryGrid images={assets} onSelectImage={this.onSelectImage} />
+            <GalleryGrid
+              images={assets}
+              onSelectImage={this.onSelectImage}
+              backdropClosesModal={true}
+            />
           </React.Fragment>
         )}
       </div>

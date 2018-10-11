@@ -102,9 +102,32 @@ body {
 }
 .gallery .navbar {
   background-color: #f6f8fa !important;
+  padding: 0.5rem 0px !important;
 }
 
 .gallery .navbar li {
   list-style: none !important;
   color: #737b83;
+}
+.gallery .tile-bottom-bar {
+  display: none;
+}
+
+.gallery .direction:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.gallery .header .options {
+  display: flex;
+  justify-content: space-between;
+}
+.gallery .header .options h3 {
+  border-bottom: 5px solid #f8c93e;
+  width: 7%;
+}
+
+.gallery .header .options i:hover {
+  cursor: pointer;
+  color: #4285f4;
 }
