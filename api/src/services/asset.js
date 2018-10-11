@@ -76,10 +76,11 @@ const storeDB = data =>
       const thumbname = i.thumbnail.replace(/^.*[\\\/]/, "");
       const entry = {
         src: `${SHARE_URL}/originals/${filename}`,
-        thumb: `${SHARE_URL}/thumbnails/${thumbname}`,
+        thumbnail: `${SHARE_URL}/thumbnails/${thumbname}`,
         uploadedBy: data.user.email,
         filename,
-        tags: data.cleanTags
+        tags: data.cleanTags,
+        path: i
       };
 
       payload.push(entry);
