@@ -41,7 +41,7 @@ export default class Gallery extends React.Component {
 
   selectedImages = () => {
     const { assets } = this.state;
-    const selected = assets.filter((asset, i) => assets[i].isSelected);
+    const selected = assets.filter((_, i) => assets[i].isSelected);
     return selected;
   };
 
@@ -60,7 +60,7 @@ export default class Gallery extends React.Component {
             <Header>
               <Navbar>
                 <NavItem onClick={this.next}>Next</NavItem>
-                <NavItem>{currentPage + 1 + "/" + overallPages}</NavItem>
+                <NavItem>{currentPage + 1 + "/" + (overallPages + 1)}</NavItem>
                 <NavItem onClick={this.previous}>previous</NavItem>
               </Navbar>
             </Header>
