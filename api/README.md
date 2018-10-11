@@ -1,11 +1,18 @@
-# API 
+# API
+
+## Before getting started
+
+- Create a folder in the root of your system name `assets`
+- Create two folders within assets named `originals` & `thumbnails`
+- run `sudo find /assets -type d -exec chmod 777 {} \;`
 
 ## **Getting started**
+
 1. Clone project & install dependencies
-    - git clone `https://github.com/fiudev/assets.git`
-    - `yarn` or `npm install`
+   - git clone `https://github.com/fiudev/assets.git`
+   - `yarn` or `npm install`
 2. Create `.env` file and setup `env` variables
-    - sample [.env]("https://github.com/fiudev/assets/blob/master/api/.env.sample")    
+   - sample [.env]("https://github.com/fiudev/assets/blob/master/api/.env.sample")
 3. run it `yarn dev` or `npm run dev`
 
 ---
@@ -64,6 +71,7 @@ or
         ]
     }
 ```
+
 ---
 
 ## Login
@@ -88,7 +96,9 @@ or
     }
 }
 ```
+
 ---
+
 ## Upload
 
 ## POST `/api/assets`
@@ -133,6 +143,7 @@ or
    ]
 }
 ```
+
 ---
 
 ## Create User

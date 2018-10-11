@@ -43,7 +43,7 @@ const genThumbnail = filepath =>
         if (err) reject(err);
 
         const filename = filepath.replace(/^.*[\\\/]/, "");
-        const dest = path.resolve("../files/thumbnail/" + "thumb-" + filename);
+        const dest = `/assets/thumbnails/thumb-${filename}`;
         const writeStream = createWriteStream(dest);
         stdout.pipe(writeStream);
         resolve({ dest });
