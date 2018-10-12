@@ -25,11 +25,10 @@ export default class Gallery extends React.Component {
   fetchAssets = async params => {
     try {
       const payload = await assetService.read(params.tag, params.page);
-
       const { assets, overallPages, currentPage } = payload;
-      this.setState({ assets, overallPages, currentPage });
+      this.setState({ tag: params.tag, assets, overallPages, currentPage });
     } catch (e) {
-      console.log(e.message);
+      this.setState({ tag: "", assets: new Array() });
     }
   };
 
@@ -54,10 +53,11 @@ export default class Gallery extends React.Component {
 
   next = () => {
     const { currentPage, overallPages } = this.state;
+
     if (currentPage < overallPages) {
       const { location } = this.props;
       const params = qs.parse(location.search);
-      let { tag, page } = params;
+      let { tag, page = 0 } = params;
 
       this.props.history.push(`/assets?tag=${tag}&page=${parseInt(page) + 1}`);
     }
@@ -65,7 +65,7 @@ export default class Gallery extends React.Component {
 
   previous = () => {
     const { currentPage, overallPages } = this.state;
-    if (currentPage >= overallPages && currentPage > 0) {
+    if (currentPage <= overallPages && currentPage > 0) {
       const { location } = this.props;
       const params = qs.parse(location.search);
       let { tag, page } = params;
@@ -80,11 +80,12 @@ export default class Gallery extends React.Component {
     if (selected.length <= 0) return alert("No assets selected.");
 
     const assets = selected.map(
-      ({ _id, filename }) => _id && { id: _id, filename }
+      ({ _id, originalname }) => _id && { id: _id, originalname }
     );
 
     try {
       await assetService.download(assets, tag);
+      this.componentDidMount();
     } catch (e) {
       console.log(e);
     }
@@ -92,7 +93,6 @@ export default class Gallery extends React.Component {
   render() {
     const { tag, assets, overallPages, currentPage } = this.state;
 
-    // const galleryAssets = assets.map(i => {thumbnailWidth:500, thumbnailHeight:500, tags:i.tags, })
     return (
       <div className="gallery">
         {assets.length <= 0 && <Header text="0 assets found." />}

@@ -37,7 +37,7 @@ const save = files =>
     try {
       for (let file of files) {
         const { filepath } = await saveBuffer(file);
-        filepaths.push(filepath);
+        filepaths.push({ originalname: file.originalname, original: filepath });
       }
       resolve(filepaths);
     } catch (e) {

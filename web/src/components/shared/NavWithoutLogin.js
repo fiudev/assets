@@ -5,10 +5,18 @@ import {
   InputGroup,
   Input,
   Button,
-  Container
+  Container,
+  Form
 } from "reactstrap";
 
 export default class NavWithoutLogin extends React.Component {
+  search = e => {
+    e.preventDefault();
+
+    const form = new FormData(e.target);
+    const tag = form.get("search");
+    this.props.history.push(`/assets?tag=${tag}`);
+  };
   render() {
     return (
       <Navbar expand="sm">
@@ -16,12 +24,14 @@ export default class NavWithoutLogin extends React.Component {
           <NavbarBrand href="/">
             <img src={require("../../static/logo_w.png")} />
           </NavbarBrand>
-          <InputGroup>
-            <Input placeholder="search" name="search" autoComplete="off" />
-            <Button>
-              <i className="fa fa-search" aria-hidden="true" />
-            </Button>
-          </InputGroup>
+          <Form onSubmit={this.search}>
+            <InputGroup>
+              <Input placeholder="search" name="search" autoComplete="off" />
+              <Button>
+                <i className="fa fa-search" aria-hidden="true" />
+              </Button>
+            </InputGroup>
+          </Form>
         </Container>
       </Navbar>
     );

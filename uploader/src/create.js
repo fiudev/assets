@@ -16,9 +16,9 @@ const create = async (req, res) => {
 
     let dest = new Array();
 
-    for (let original of filepaths) {
-      const { dest: thumbnail } = await genThumbnail(original);
-      dest.push({ thumbnail, original });
+    for (let file of filepaths) {
+      const { dest: thumbnail } = await genThumbnail(file.original);
+      dest.push({ thumbnail, ...file });
     }
 
     response.successResponse(res, dest);

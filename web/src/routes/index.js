@@ -4,13 +4,15 @@ import { Container } from "reactstrap";
 
 import NavWithoutLogin from "../components/shared/NavWithoutLogin";
 
+const NavWithoutLoginWithRouter = withRouter(NavWithoutLogin);
+
 const DefaultRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
       render={props => (
         <React.Fragment>
-          <NavWithoutLogin />
+          <NavWithoutLoginWithRouter />
           <Container>
             <Component {...props} />
           </Container>
@@ -26,7 +28,7 @@ const GalleryRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={props => (
         <React.Fragment>
-          <NavWithoutLogin />
+          <NavWithoutLoginWithRouter />
           <Container>
             <Component {...props} />
           </Container>

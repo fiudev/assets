@@ -97,6 +97,28 @@ body {
 }
 
 /* ------------------------------------------- */
+
+.gallery .ReactGridGallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.gallery .ReactGridGallery .tile {
+  height: 170px;
+  width: 300px;
+}
+.gallery .ReactGridGallery .tile-viewport {
+  height: inherit !important;
+  margin: 0 !important;
+}
+
+.gallery .ReactGridGallery .tile img {
+  height: 100% !important;
+  width: 100%;
+  object-fit: cover;
+}
+
 .gallery .header {
   width: 100% !important;
 }

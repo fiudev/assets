@@ -15,7 +15,7 @@ const downloadInstance = axios.create({
 const read = (tag, page = 0) =>
   new Promise(async (resolve, reject) => {
     try {
-      const query = `tag=${tag}` + `&page=${page}` + `&limit=10`;
+      const query = `tag=${tag}` + `&page=${page}` + `&limit=30`;
       const { data } = await assetInstance.get("/assets?" + query);
       resolve(data.data);
     } catch (e) {
@@ -24,19 +24,19 @@ const read = (tag, page = 0) =>
   });
 
 const download = (assets, tag) =>
-  new Promise((resolve, reject) => {
+  new Promise(async (resolve, reject) => {
     const zip = new JSZip();
     const folder = zip.folder(tag);
     let arraySize = assets.length;
 
     try {
-      assets.forEach(async ({ id, filename }) => {
+      assets.forEach(async ({ id, originalname }) => {
         const params = { params: { id } };
         const { data } = await downloadInstance.get("/download", params);
         const blob = await new Blob([data], { type: data.type });
 
         if (navigator.userAgent.includes("Chrome")) {
-          folder.file(filename, blob, { binary: true });
+          folder.file(originalname, blob, { binary: true });
           arraySize--;
           if (arraySize == 0) {
             const content = await zip.generateAsync({ type: "blob" });
@@ -44,7 +44,7 @@ const download = (assets, tag) =>
             resolve();
           }
         } else {
-          dwn(blob, filename, blob.type);
+          dwn(blob, originalname, blob.type);
           resolve();
         }
       });

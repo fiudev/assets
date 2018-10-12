@@ -79,8 +79,12 @@ const storeDB = data =>
         thumbnail: `${SHARE_URL}/thumbnails/${thumbname}`,
         uploadedBy: data.user.email,
         filename,
+        originalname: i.originalname,
         tags: data.cleanTags,
-        path: i
+        path: {
+          original: i.original,
+          thumbnail: i.thumbnail
+        }
       };
 
       payload.push(entry);

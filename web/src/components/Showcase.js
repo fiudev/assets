@@ -5,7 +5,7 @@ import Header from "./shared/Header";
 function ShowCaseCard(props) {
   const { card } = props;
   return (
-    <a href={`/assets?tag=${card.tag}&page=0`}>
+    <a href={`/assets?tag=${card.tag}`}>
       <Card>
         <CardImg src={card.img} />
         <CardBody>
