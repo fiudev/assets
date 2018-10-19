@@ -58,4 +58,14 @@ const read = async (req, res) => {
 
 const update = async (req, res) => {};
 
-export default { create, read, update };
+const download = async (req, res) => {
+  const { id } = req.query;
+  try {
+    const { filepath, filename } = await assetService.download(id);
+    res.download(filepath, filename);
+  } catch (e) {
+    return httpResponse.failureResponse(res, e);
+  }
+};
+
+export default { create, read, update, download };

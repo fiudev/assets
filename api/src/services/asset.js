@@ -76,10 +76,15 @@ const storeDB = data =>
       const thumbname = i.thumbnail.replace(/^.*[\\\/]/, "");
       const entry = {
         src: `${SHARE_URL}/originals/${filename}`,
-        thumb: `${SHARE_URL}/thumbnails/${thumbname}`,
+        thumbnail: `${SHARE_URL}/thumbnails/${thumbname}`,
         uploadedBy: data.user.email,
         filename,
-        tags: data.cleanTags
+        originalname: i.originalname,
+        tags: data.cleanTags,
+        path: {
+          original: i.original,
+          thumbnail: i.thumbnail
+        }
       };
 
       payload.push(entry);
@@ -107,10 +112,24 @@ const createThumbnails = filepaths =>
     }
   });
 
+/**
+ * @param {string} id
+ */
+const download = id =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const { path, filename } = await Asset.findById(id);
+      resolve({ filepath: path.original, filename });
+    } catch (e) {
+      reject(e);
+    }
+  });
+
 export default {
   createThumbnails,
   validateTag,
   validateTags,
   searchByTag,
-  storeDB
+  storeDB,
+  download
 };
