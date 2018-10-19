@@ -11,6 +11,17 @@ const downloadInstance = axios.create({
   baseURL: API_URL,
   responseType: "blob"
 });
+const uploadInstance = axios.create({ baseURL: API_URL });
+
+uploadInstance.interceptors.request.use(
+  config => {
+    const token = localStorage.getItem("JWT");
+    if (token != null) config.headers = { Authorization: "Bearer " + token };
+
+    return config;
+  },
+  err => Promise.reject(err)
+);
 
 const read = (tag, page = 0) =>
   new Promise(async (resolve, reject) => {
@@ -53,4 +64,26 @@ const download = (assets, tag) =>
     }
   });
 
-export default { read, download };
+const upload = (assets, tags) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      let formData = new FormData();
+
+      for (let asset of assets) {
+        formData.append("data", asset);
+      }
+
+      for (let tag of tags) {
+        const cleanTag = tag.replace(/[^a-zA-Z0-9 ]/g, "").toLowerCase();
+        cleanTag != "" && formData.append("tags[]", cleanTag);
+      }
+
+      const { data } = await uploadInstance.post("/assets", formData);
+
+      resolve(data.data);
+    } catch (e) {
+      console.log(e.message);
+      reject(e);
+    }
+  });
+export default { read, download, upload };

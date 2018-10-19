@@ -10,9 +10,11 @@
     "query-string": "^6.2.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-google-login-component": "^0.9.3",
     "react-grid-gallery": "^0.5.3",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.4",
+    "react-tagsinput": "^3.19.0",
     "reactstrap": "^6.5.0"
   },
   "scripts": {

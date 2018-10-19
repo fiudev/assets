@@ -3,8 +3,10 @@ import { Route, BrowserRouter, Switch, withRouter } from "react-router-dom";
 import { Container } from "reactstrap";
 
 import NavWithoutLogin from "../components/shared/NavWithoutLogin";
+import NavWithLogin from "../components/shared/NavWithLogin";
 
 const NavWithoutLoginWithRouter = withRouter(NavWithoutLogin);
+const NavWithLoginWithRouter = withRouter(NavWithLogin);
 
 const DefaultRoute = ({ component: Component, ...rest }) => {
   return (
@@ -12,7 +14,7 @@ const DefaultRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={props => (
         <React.Fragment>
-          <NavWithoutLoginWithRouter />
+          <NavWithLoginWithRouter />
           <Container>
             <Component {...props} />
           </Container>

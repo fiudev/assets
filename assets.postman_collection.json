@@ -169,6 +169,39 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "hydrate",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1YmI1OTJlYjM5NThlNTU5YmI5NmQ0NGMiLCJpYXQiOjE1Mzg5Njc4NDcsImV4cCI6MTUzOTA1NDI0N30.3mdmcrbQ8_n0zwNSVqZJCQD9R7T1AoY4jk7M5LuanWk"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"tags\":[\"fiu\"],\n\t\"assetPaths\": \"./\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/hydrate",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"hydrate"
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true
