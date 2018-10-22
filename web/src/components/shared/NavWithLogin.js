@@ -141,7 +141,7 @@ export default class NavWithLogin extends React.Component {
       alert("No more than 5 tags per upload.");
       this.setState({ isUploadOpen: false });
     } else {
-      const isValid = await this.checkFileType(assets);
+      const isValid = this.checkFileType(assets);
       if (isValid) {
         try {
           const data = await assetService.upload(assets, tags);
@@ -158,22 +158,21 @@ export default class NavWithLogin extends React.Component {
     }
   };
 
-  checkFileType = assets =>
-    new Promise((resolve, reject) => {
-      for (let asset of assets) {
-        let { type } = asset;
-        if (
-          type != "image/jpeg" &&
-          type != "image/png" &&
-          type != "image/JPG" &&
-          type != "image/PNG" &&
-          type != "image/jpg"
-        ) {
-          reject(false);
-        }
+  checkFileType = assets => {
+    for (let asset of assets) {
+      let { type } = asset;
+      if (
+        type != "image/jpeg" &&
+        type != "image/png" &&
+        type != "image/JPG" &&
+        type != "image/PNG" &&
+        type != "image/jpg"
+      ) {
+        return false;
       }
-      resolve(true);
-    });
+    }
+    return true;
+  };
 
   handleFileChange = e => {
     e.preventDefault();
