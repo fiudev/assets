@@ -174,6 +174,7 @@ export default class NavWithLogin extends React.Component {
     return true;
   };
 
+
   handleFileChange = e => {
     e.preventDefault();
     this.setState({ assets: e.target.files });
