@@ -163,3 +163,8 @@ or
     "email": "example@mail.com"
 }
 ```
+
+
+## Production
+
+- Start script `pm2 start --name api npm -- start`
