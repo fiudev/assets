@@ -75,8 +75,8 @@ const storeDB = data =>
       const filename = i.original.replace(/^.*[\\\/]/, "");
       const thumbname = i.thumbnail.replace(/^.*[\\\/]/, "");
       const entry = {
-        src: `${SHARE_URL}/originals/${filename}`,
-        thumbnail: `${SHARE_URL}/thumbnails/${thumbname}`,
+        src: `${SHARE_URL}/original/${filename}`,
+        thumbnail: `${SHARE_URL}/thumbnail/${thumbname}`,
         uploadedBy: data.user.email,
         filename,
         originalname: i.originalname,
