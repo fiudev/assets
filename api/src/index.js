@@ -15,7 +15,7 @@ app.use(cors());
 app.use(helmet());
 app.use(bodyParser.json());
 app.disable("x-powered-by");
-app.use(express.static("/assets"));
+// app.use(express.static("/assets"));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/api", apiRouter);
