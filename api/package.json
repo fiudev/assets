@@ -7,7 +7,8 @@
     "start": "node build/",
     "build": "backpack build",
     "dev": "backpack dev",
-    "createToken": "node src/scripts/createToken"
+    "createToken": "node src/scripts/createToken",
+    "prod": "pm2 start --name api npm -- start"
   },
   "dependencies": {
     "axios": "^0.18.0",
