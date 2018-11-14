@@ -75,8 +75,8 @@ const storeDB = data =>
       const filename = i.original.replace(/^.*[\\\/]/, "");
       const thumbname = i.thumbnail.replace(/^.*[\\\/]/, "");
       const entry = {
-        src: `${SHARE_URL}/original/${filename}`,
-        thumbnail: `${SHARE_URL}/thumbnail/${thumbname}`,
+        src: `${SHARE_URL}/originals/${filename}`,
+        thumbnail: `${SHARE_URL}/thumbnails/${thumbname}`,
         uploadedBy: data.user.email,
         filename,
         originalname: i.originalname,
@@ -101,12 +101,14 @@ const createThumbnails = filepaths =>
     try {
       const hasValidConnection = await isReachable(THUMB_URL);
 
-      if (hasValidConnection) {
-        if (!Array.isArray(filepaths)) reject(errorResponse.invalidRequest);
-        const { data } = await thmb.post("/create", { filepaths });
-        resolve(data.data);
+      if (!hasValidConnection) {
+        console.log("Uploader Unavailable.");
+        reject("Uploader unavailable.");
       }
-      reject("Uploader unavailable.");
+
+      if (!Array.isArray(filepaths)) reject(errorResponse.invalidRequest);
+      const { data } = await thmb.post("/create", { filepaths });
+      resolve(data.data);
     } catch (e) {
       reject(e);
     }

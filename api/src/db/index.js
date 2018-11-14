@@ -9,6 +9,14 @@ const options = {
   useCreateIndex: true
 };
 
-const db = () => Promise.resolve(mongoose.connect(DB_URL, options));
+const db = () =>
+  Promise.resolve(
+    mongoose.connect(
+      DB_URL,
+      options
+    )
+  );
 
-export default db;
+db()
+  .then(() => console.log("> DB connected"))
+  .catch(e => console.log(e.message));

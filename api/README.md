@@ -6,6 +6,9 @@
 - Create two folders within assets named `originals` & `thumbnails`
 - run `sudo find /assets -type d -exec chmod 777 {} \;`
 
+- gm (graphics magick) must be installed on your computer
+    - Mac `brew install graphicksmagick`
+
 ## **Getting started**
 
 1. Clone project & install dependencies
