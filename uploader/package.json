@@ -5,7 +5,7 @@
   "author": "david-castaneda <dcast188@fiu.edu>",
   "license": "MIT",
   "scripts": {
-    "start": "node build/",
+    "start": "node build/main.js",
     "build": "backpack build",
     "dev": "backpack dev",
     "prod": "pm2 start --name uploader npm -- start"
