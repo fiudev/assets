@@ -30,6 +30,7 @@ const genThumbnail = filepath =>
     const width = await thumbDimensions(filepath);
 
     const readStream = createReadStream(filepath);
+
     gm(readStream)
       .filter("blackman")
       .type("trueColor")
@@ -39,8 +40,8 @@ const genThumbnail = filepath =>
       .noProfile()
       .interlace("none")
       .resize(width)
-      .stream((err, stdout) => {
-        if (err) reject(err);
+      .stream((err, stdout, stderr) => {
+        if (err) console.log(err);
 
         const filename = filepath.replace(/^.*[\\\/]/, "");
         const dest = `/assets/thumbnails/thumb-${filename}`;
