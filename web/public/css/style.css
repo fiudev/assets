@@ -154,10 +154,6 @@ body {
   width: fit-content;
 }
 
-.header h4:hover {
-  text-decoration: underline;
-  text-decoration-color: #626468;
-}
 /* ------------------------------------------- */
 
 .showcase {
@@ -240,4 +236,38 @@ body {
 .gallery .header .options i:hover {
   cursor: pointer;
   color: #4285f4;
+}
+
+@media only screen and (max-width: 600px) {
+  .showcase .card {
+    width: 100%;
+    margin: 10px 0px !important;
+  }
+
+  .login-btn {
+    display: none;
+  }
+
+  .profile {
+    display: none;
+  }
+
+  .navbar-brand {
+    margin-bottom: 15px;
+  }
+
+  .search-login form {
+    width: 100%;
+  }
+  .navbar form {
+    width: 90%;
+  }
+
+  .navbar .search-login {
+    width: 100%;
+  }
+
+  .navbar .input-group {
+    width: 100%;
+  }
 }
